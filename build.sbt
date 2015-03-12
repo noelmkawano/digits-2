@@ -1,4 +1,4 @@
-name := """ics-play-bootstrap"""
+name := """digits"""
 
 version := "1.0-SNAPSHOT"
 
