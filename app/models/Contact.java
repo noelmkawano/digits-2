@@ -7,16 +7,19 @@ public class Contact {
   private String firstName;
   private String lastName;
   private String telephone;
-
+  private long id;
 
   /**
    * Create new Contact object.
+   *
+   * @param id        the user id string.
    * @param firstName the user first name.
-   * @param lastName the user last name.
+   * @param lastName  the user last name.
    * @param telephone the user telephone number.
    */
-  public Contact(String firstName, String lastName, String telephone) {
+  public Contact(long id, String firstName, String lastName, String telephone) {
 
+    this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.telephone = telephone;
@@ -24,6 +27,7 @@ public class Contact {
 
   /**
    * Returns the first name value to the caller.
+   *
    * @return firstName String.
    */
   public String getFirstName() {
@@ -32,6 +36,7 @@ public class Contact {
 
   /**
    * Returns the last name value to the caller.
+   *
    * @return lastName String.
    */
   public String getLastName() {
@@ -40,9 +45,19 @@ public class Contact {
 
   /**
    * Returns the telephone number value to the caller.
+   *
    * @return telephone String.
    */
   public String getTelephone() {
     return telephone;
+  }
+
+  /**
+   * Returns the ID value to the caller.
+   *
+   * @return id long value.
+   */
+  public long getId() {
+    return id;
   }
 }
