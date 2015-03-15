@@ -28,8 +28,8 @@ public class ContactFormData {
   public String telephone = "";
 
   /**
-   * Validates our form input for the NewContact page.
-   * @return Either null if
+   * Validate that all fields are non-empty and that telephone field is 12 characters.
+   * @return Either null if no errors, or a List of errors.
    */
   public List<ValidationError> validate() {
 
@@ -43,7 +43,7 @@ public class ContactFormData {
     if (telephone == null || telephone.length() == 0) {
       errors.add(new ValidationError("telephone", "A telephone number must be provided."));
     }
-    if (telephone.length() != MAX_TELEPHONE_DIGITS) {
+    if ((telephone != null) && (telephone.length() != MAX_TELEPHONE_DIGITS)) {
       errors.add(new ValidationError("telephone", "Telephone number must be of the format xxx-xxx-xxxx."));
     }
     return errors.isEmpty() ? null : errors;

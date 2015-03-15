@@ -32,7 +32,7 @@ public class Application extends Controller {
   }
 
   /**
-   * Processes the form data passed in by newContact.
+   * Handles the request to post form data from the newContact page.
    *
    * @return The newContact page, either with errors or with form data.
    */
