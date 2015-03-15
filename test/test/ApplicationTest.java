@@ -30,7 +30,7 @@ public class ApplicationTest {
   public void renderTemplate() {
     Content html = views.html.Index.render("Welcome to the home page.");
     assertThat(contentType(html)).isEqualTo("text/html");
-    assertThat(contentAsString(html)).contains("home page");
+    assertThat(contentAsString(html)).contains("Current Contacts");
   }
 
 

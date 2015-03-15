@@ -17,7 +17,7 @@ import static play.test.Helpers.testServer;
 public class IntegrationTest {
 
   /**
-   * Check to see that both the index and newContact pages can be retrieved.
+   * Check to see that both the index and newcontact pages can be retrieved.
    */
   @Test
   public void test() {
@@ -26,8 +26,8 @@ public class IntegrationTest {
         browser.goTo("http://localhost:3333");
         assertThat(browser.pageSource()).contains("Current Contacts");
 
-        browser.goTo("http://localhost:3333/newContact");
-        assertThat(browser.pageSource()).contains("First Name");
+        browser.goTo("http://localhost:3333/newcontact");
+        assertThat(browser.pageSource()).contains("First");
       }
     });
   }
