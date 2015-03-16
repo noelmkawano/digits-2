@@ -23,12 +23,14 @@ public class Application extends Controller {
   }
 
   /**
-   * Renders the newContact page with a form to add new contacts.
+   * Renders the newContact page with a form to add new contacts if the ID is 0; otherwise updates the existing contact.
    *
+   * @param id The ID value passed in.
    * @return The newContact page.
    */
-  public static Result newContact() {
-    Form<ContactFormData> formData = Form.form(ContactFormData.class);
+  public static Result newContact(long id) {
+    ContactFormData data = (id == 0) ? new ContactFormData() : new ContactFormData(ContactDB.getContact(id));
+    Form<ContactFormData> formData = Form.form(ContactFormData.class).fill(data);
     return ok(NewContact.render(formData));
   }
 
