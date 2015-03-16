@@ -1,5 +1,6 @@
 package views.formdata;
 
+import models.Contact;
 import play.data.validation.ValidationError;
 
 import java.util.ArrayList;
@@ -11,6 +12,11 @@ import java.util.List;
 public class ContactFormData {
 
   private static final int MAX_TELEPHONE_DIGITS = 12;
+
+  /**
+   * Input data id hidden field.
+   */
+  public long id;
 
   /**
    * Input data first name field.
@@ -28,7 +34,28 @@ public class ContactFormData {
   public String telephone = "";
 
   /**
+   * Default no-arg constructor required by Play.
+   */
+  public ContactFormData() {
+    // No content.
+  }
+
+  /**
+   * Constructor that builds the ContactFormData object from a Contact.
+   *
+   * @param contact The contact object passed to the constructor.
+   */
+  public ContactFormData(Contact contact) {
+    id = contact.getId();
+    firstName = contact.getFirstName();
+    lastName = contact.getLastName();
+    telephone = contact.getTelephone();
+  }
+
+
+  /**
    * Validate that all fields are non-empty and that telephone field is 12 characters.
+   *
    * @return Either null if no errors, or a List of errors.
    */
   public List<ValidationError> validate() {
