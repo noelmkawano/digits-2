@@ -35,6 +35,17 @@ public class Application extends Controller {
   }
 
   /**
+   * Renders the index page with the given record deleted from the in-memory database.
+   *
+   * @param id The ID value passed in.
+   * @return The Index page.
+   */
+  public static Result deleteContact(long id) {
+    ContactDB.deleteContact(id);
+    return ok(Index.render(ContactDB.getContacts()));
+  }
+
+  /**
    * Handles the request to post form data from the newContact page.
    *
    * @return The newContact page, either with errors or with form data.
