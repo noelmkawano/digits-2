@@ -6,14 +6,14 @@ import org.openqa.selenium.WebDriver;
 import static org.fest.assertions.Assertions.assertThat;
 
 /**
- * Provides testing support for the Index page.
+ * Provides testing support for the NewContact page.
  * @author Philip Johnson
  */
 public class NewContact extends FluentPage {
   private String url;
 
   /**
-   * Create the IndexPage.
+   * Create the NewContact Page.
    * @param webDriver The driver.
    * @param port The port.
    */
