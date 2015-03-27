@@ -7,7 +7,6 @@ import static org.fest.assertions.Assertions.assertThat;
 
 /**
  * Provides testing support for the NewContact page.
- * @author Philip Johnson
  */
 public class NewContact extends FluentPage {
   private String url;
