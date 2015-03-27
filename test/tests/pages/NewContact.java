@@ -7,15 +7,16 @@ import static org.fest.assertions.Assertions.assertThat;
 
 /**
  * Provides testing support for the NewContact page.
- * @author Philip Johnson
  */
 public class NewContact extends FluentPage {
+
   private String url;
 
   /**
    * Create the NewContact Page.
+   *
    * @param webDriver The driver.
-   * @param port The port.
+   * @param port      The port.
    */
   public NewContact(WebDriver webDriver, int port) {
     super(webDriver);
@@ -34,8 +35,9 @@ public class NewContact extends FluentPage {
 
   /**
    * Tests the form on the newContact page with given data.
+   *
    * @param firstName the First Name.
-   * @param lastName The Last Name.
+   * @param lastName  The Last Name.
    * @param telephone The telephone number.
    */
   public void createContact(String firstName, String lastName, String telephone) {

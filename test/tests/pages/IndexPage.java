@@ -7,15 +7,16 @@ import static org.fest.assertions.Assertions.assertThat;
 
 /**
  * Provides testing support for the Index page.
- * @author Philip Johnson
  */
 public class IndexPage extends FluentPage {
+
   private String url;
 
   /**
    * Create the IndexPage.
+   *
    * @param webDriver The driver.
-   * @param port The port.
+   * @param port      The port.
    */
   public IndexPage(WebDriver webDriver, int port) {
     super(webDriver);
@@ -34,8 +35,9 @@ public class IndexPage extends FluentPage {
 
   /**
    * Checks that the index page table has a given contact.
+   *
    * @param firstName The first name.
-   * @param lastName The last name.
+   * @param lastName  The last name.
    * @param telephone The telephone number.
    */
   public void hasContact(String firstName, String lastName, String telephone) {
