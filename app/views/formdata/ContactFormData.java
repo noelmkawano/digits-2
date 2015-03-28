@@ -34,6 +34,11 @@ public class ContactFormData {
   public String telephone = "";
 
   /**
+   * Input data telephone type dropdown.
+   */
+  public String telephoneType = "";
+
+  /**
    * Default no-arg constructor required by Play.
    */
   public ContactFormData() {
@@ -50,6 +55,7 @@ public class ContactFormData {
     firstName = contact.getFirstName();
     lastName = contact.getLastName();
     telephone = contact.getTelephone();
+    telephoneType = contact.getTelephoneType();
   }
 
 
@@ -72,6 +78,9 @@ public class ContactFormData {
     }
     if ((telephone != null) && (telephone.length() != MAX_TELEPHONE_DIGITS)) {
       errors.add(new ValidationError("telephone", "Telephone number must be of the format xxx-xxx-xxxx."));
+    }
+    if ((telephoneType == null) || (telephoneType.length() == 0)) {
+      errors.add(new ValidationError("telephoneType", "You must select a Telephone Type."));
     }
     return errors.isEmpty() ? null : errors;
   }
