@@ -39,11 +39,13 @@ public class IndexPage extends FluentPage {
    * @param firstName The first name.
    * @param lastName  The last name.
    * @param telephone The telephone number.
+   * @param telephoneType The telephone type.
    */
-  public void hasContact(String firstName, String lastName, String telephone) {
+  public void hasContact(String firstName, String lastName, String telephone, String telephoneType) {
     assertThat(pageSource()).contains(firstName);
     assertThat(pageSource()).contains(lastName);
     assertThat(pageSource()).contains(telephone);
+    assertThat(pageSource()).contains(telephoneType);
   }
 
 }
