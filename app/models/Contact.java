@@ -8,21 +8,27 @@ public class Contact {
   private String firstName;
   private String lastName;
   private String telephone;
+  private String telephoneType;
+
 
   /**
    * Create new Contact object.
    *
-   * @param id the id value.
-   * @param firstName the user first name.
-   * @param lastName  the user last name.
-   * @param telephone the user telephone number.
+   * @param id            the id value.
+   * @param firstName     the user first name.
+   * @param lastName      the user last name.
+   * @param telephone     the user telephone number.
+   * @param telephoneType the type of the user's phone number.
    */
-  public Contact(long id, String firstName, String lastName, String telephone) {
+  public Contact(long id, String firstName, String lastName, String telephone,
+                 String telephoneType) {
 
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.telephone = telephone;
+    this.telephoneType = telephoneType;
+
   }
 
   /**
@@ -59,5 +65,14 @@ public class Contact {
    */
   public String getTelephone() {
     return telephone;
+  }
+
+  /**
+   * Returns the Telephone Type value to the caller.
+   *
+   * @return the Telephone Type string.
+   */
+  public String getTelephoneType() {
+    return telephoneType;
   }
 }

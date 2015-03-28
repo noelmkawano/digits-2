@@ -11,6 +11,7 @@
           <th>First</th>
           <th>Last</th>
           <th>Digits</th>
+          <th>Type</th>
         </tr>
       </thead>
       <tbody>
@@ -19,6 +20,7 @@
             <td>@contact.getFirstName</td>
             <td>@contact.getLastName</td>
             <td>@contact.getTelephone</td>
+            <td>@contact.getTelephoneType</td>
             <td><a href="@routes.Application.newContact(contact.getId)" class="btn btn-warning btn-xs" role="button">Edit</a></td>
             <td><a href="@routes.Application.deleteContact(contact.getId)" class="btn btn-danger btn-xs" role="button">Delete</a></td>
           </tr>

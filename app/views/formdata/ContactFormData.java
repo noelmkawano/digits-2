@@ -34,6 +34,11 @@ public class ContactFormData {
   public String telephone = "";
 
   /**
+   * Input data telephone type select list.
+   */
+  public String telephoneType;
+
+  /**
    * Default no-arg constructor required by Play.
    */
   public ContactFormData() {
@@ -46,10 +51,11 @@ public class ContactFormData {
    * @param contact The contact object passed to the constructor.
    */
   public ContactFormData(Contact contact) {
-    id = contact.getId();
-    firstName = contact.getFirstName();
-    lastName = contact.getLastName();
-    telephone = contact.getTelephone();
+    this.id = contact.getId();
+    this.firstName = contact.getFirstName();
+    this.lastName = contact.getLastName();
+    this.telephone = contact.getTelephone();
+    this.telephoneType = contact.getTelephoneType();
   }
 
 
@@ -72,6 +78,9 @@ public class ContactFormData {
     }
     if ((telephone != null) && (telephone.length() != MAX_TELEPHONE_DIGITS)) {
       errors.add(new ValidationError("telephone", "Telephone number must be of the format xxx-xxx-xxxx."));
+    }
+    if (!TelephoneTypes.isType(telephoneType)) {
+      errors.add(new ValidationError("telephoneType", "Telephone type is invalid."));
     }
     return errors.isEmpty() ? null : errors;
   }
