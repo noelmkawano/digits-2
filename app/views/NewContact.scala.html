@@ -23,18 +23,16 @@
         placeholder = "Last Name",
         help = "")
 
-      <!-- Telephone -->
-      @text(contactForm("telephone"),
-        label = "Telephone",
-        placeholder = "xxx-xxx-xxxx",
-        help = "")
-
-      <!-- Telephone Type -->
-      @bootstrap3.select(contactForm("telephoneType"),
-        label = "Type",
-        optionMap = telephoneTypeMap,
-        isMultiple = false,
-        help = "")
+      <!-- Telephone and Telephone Type -->
+      @telephone(contactForm("telephone"),
+        labelTelNum = "Telephone",
+        placeholderTelNum = "xxx-xxx-xxxx",
+        helpTelNum= "",
+        contactForm("telephoneType"),
+        labelTelType = "",
+        optionMapTelType = telephoneTypeMap,
+        isMultipleTelType = false,
+        helpTelType = "")
 
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">

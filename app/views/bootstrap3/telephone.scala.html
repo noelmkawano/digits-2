@@ -1,0 +1,31 @@
+@(fieldTelNum: Field, labelTelNum: String = "CHANGEME", placeholderTelNum: String = "", helpTelNum: String = "",
+    fieldTelType: Field, labelTelType: String = "CHANGEME", optionMapTelType: Map[String, Boolean],
+    isMultipleTelType: Boolean, helpTelType: String = "")
+
+<div class="form-group @if(fieldTelNum.hasErrors || fieldTelType.hasErrors) {has-error}">
+  <label class="col-sm-2 control-label" for="@fieldTelNum.id">@labelTelNum</label>
+  <div class="col-sm-6">
+    <input type="text"
+    class="form-control"
+    id="@fieldTelNum.id"
+    name="@fieldTelNum.name"
+    value="@fieldTelNum.value.getOrElse("")"
+    placeholder="@placeholderTelNum" />
+    <span class="help-block">@helpTelType</span>
+    <span class="help-block">@{fieldTelNum.error.map { error => error.message }}</span>
+  </div>
+  <div class="col-sm-4">
+    <select
+    class="form-control"
+    id="@fieldTelType.id"
+    name="@if(isMultipleTelType) {@(fieldTelType.name + "[]")} else {@fieldTelType.name}"
+    @if(isMultipleTelType) {multiple="multiple"}>
+    @if(!isMultipleTelType) {<option class="blank" value="">Please select a value</option>}
+    @for((optionName, isSelected) <- optionMapTelType) {
+      <option id="@optionName" value="@optionName" @if(isSelected) {selected}>@optionName</option>
+    }
+    </select>
+    <span class="help-block">@helpTelNum</span>
+    <span class="help-block">@{fieldTelType.error.map { error => error.message }}</span>
+  </div>
+</div>
