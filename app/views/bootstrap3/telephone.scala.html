@@ -1,6 +1,6 @@
 @(telField: Field, typeField: Field, isMultiple: Boolean, optionMap: Map[String, Boolean])
 
-<div class="form-group @if(telField.hasErrors) {has-error}">
+<div class="form-group @if(telField.hasErrors || typeField.hasErrors) {has-error}">
   <label class="col-sm-2 control-label">Telephone</label>
   <div class="col-sm-6">
     <input type="text"
