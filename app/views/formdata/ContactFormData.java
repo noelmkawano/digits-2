@@ -58,6 +58,20 @@ public class ContactFormData {
     this.telephoneType = contact.getTelephoneType();
   }
 
+  /**
+   * Creates test data during initialization.
+   * @param firstName The First Name.
+   * @param lastName The last name.
+   * @param telephone The telephone number.
+   * @param telephoneType The type of telephone.
+   */
+  public ContactFormData(String firstName, String lastName, String telephone, String telephoneType) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.telephone = telephone;
+    this.telephoneType = telephoneType;
+  }
+
 
   /**
    * Validate that all fields are non-empty and that telephone field is 12 characters.
