@@ -72,7 +72,8 @@ public class ContactFormData {
    * @param telephoneType The type of telephone.
    * @param dietTypes The selected Diet Types.
    */
-  public ContactFormData(String firstName, String lastName, String telephone, String telephoneType, List<String> dietTypes) {
+  public ContactFormData(String firstName, String lastName, String telephone, String telephoneType,
+                         List<String> dietTypes) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.telephone = telephone;
@@ -104,9 +105,11 @@ public class ContactFormData {
     if (!TelephoneTypes.isType(telephoneType)) {
       errors.add(new ValidationError("telephoneType", "Please select a telephone type from the list."));
     }
-//    if (!DietTypes.isType(dietTypes)) {
-//      errors.add(new ValidationError("dietType", "Invalid type passed in."));
-//    }
+    for (String diet : dietTypes) {
+      if (!DietTypes.isType(diet)) {
+        errors.add(new ValidationError("dietType", "Invalid type passed in."));
+      }
+    }
     return errors.isEmpty() ? null : errors;
   }
 }

@@ -24,7 +24,8 @@ public class Contact {
    * @param telephoneType the user telephone type.
    * @param dietTypes     A list of dietary preferences.
    */
-  public Contact(long id, String firstName, String lastName, String telephone, String telephoneType, List<String> dietTypes) {
+  public Contact(long id, String firstName, String lastName, String telephone, String telephoneType,
+                 List<String> dietTypes) {
 
     this.id = id;
     this.firstName = firstName;
