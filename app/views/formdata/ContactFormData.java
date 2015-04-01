@@ -39,6 +39,11 @@ public class ContactFormData {
   public String telephoneType = "";
 
   /**
+   * Input diet Type string.
+   */
+  public List<String> dietTypes = new ArrayList<String>();
+
+  /**
    * Default no-arg constructor required by Play.
    */
   public ContactFormData() {
@@ -56,6 +61,7 @@ public class ContactFormData {
     this.lastName = contact.getLastName();
     this.telephone = contact.getTelephone();
     this.telephoneType = contact.getTelephoneType();
+    this.dietTypes = contact.getDietTypes();
   }
 
   /**
@@ -64,12 +70,15 @@ public class ContactFormData {
    * @param lastName The Last Name.
    * @param telephone The telephone number.
    * @param telephoneType The type of telephone.
+   * @param dietTypes The selected Diet Types.
    */
-  public ContactFormData(String firstName, String lastName, String telephone, String telephoneType) {
+  public ContactFormData(String firstName, String lastName, String telephone, String telephoneType,
+                         List<String> dietTypes) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.telephone = telephone;
     this.telephoneType = telephoneType;
+    this.dietTypes = dietTypes;
   }
 
 
@@ -95,6 +104,11 @@ public class ContactFormData {
     }
     if (!TelephoneTypes.isType(telephoneType)) {
       errors.add(new ValidationError("telephoneType", "Please select a telephone type from the list."));
+    }
+    for (String diet : dietTypes) {
+      if (!DietTypes.isType(diet)) {
+        errors.add(new ValidationError("dietType", "Invalid type passed in."));
+      }
     }
     return errors.isEmpty() ? null : errors;
   }

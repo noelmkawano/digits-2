@@ -3,6 +3,8 @@ package tests.pages;
 import org.fluentlenium.core.FluentPage;
 import org.openqa.selenium.WebDriver;
 
+import java.util.List;
+
 import static org.fest.assertions.Assertions.assertThat;
 
 /**
@@ -40,13 +42,17 @@ public class IndexPage extends FluentPage {
    * @param lastName  The last name.
    * @param telephone The telephone number.
    * @param telephoneType The telephone type.
+   * @param dietType The diet type string list.
    */
-  public void hasContact(String firstName, String lastName, String telephone, String telephoneType) {
+  public void hasContact(String firstName, String lastName, String telephone, String telephoneType,
+                         List<String> dietType) {
     assertThat(pageSource()).contains(firstName);
     assertThat(pageSource()).contains(lastName);
     assertThat(pageSource()).contains(telephone);
     assertThat(pageSource()).contains(telephoneType);
+    for (String diet : dietType) {
+      assertThat(pageSource()).contains(diet);
+    }
   }
-
 }
 

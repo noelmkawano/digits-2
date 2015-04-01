@@ -6,6 +6,9 @@ import play.test.TestBrowser;
 import tests.pages.IndexPage;
 import tests.pages.NewContact;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static play.test.Helpers.HTMLUNIT;
 import static play.test.Helpers.fakeApplication;
 import static play.test.Helpers.inMemoryDatabase;
@@ -55,9 +58,13 @@ public class IntegrationTest {
             String lastName = "Karjala";
             String telephone = "808-822-2601";
             String telephoneType = "Work";
-            contactPage.createContact(firstName, lastName, telephone, telephoneType);
+            List<String> dietTypes = new ArrayList<>();
+            dietTypes.add("Chicken");
+            dietTypes.add("Beef");
+            dietTypes.add("Gluten");
+            contactPage.createContact(firstName, lastName, telephone, telephoneType, dietTypes);
             browser.goTo(indexPage);
-            indexPage.hasContact(firstName, lastName, telephone, telephoneType);
+            indexPage.hasContact(firstName, lastName, telephone, telephoneType, dietTypes);
           }
         });
   }
