@@ -23,9 +23,7 @@ public class Global extends GlobalSettings {
     testDiet2.add(1, "Gluten");
     ContactDB.addContacts(new ContactFormData("Brooke", "Jones", "808-111-2222", "Mobile", testDiet2));
     List<String> testDiet3 = new ArrayList<>();
-    testDiet3.add(0, "Fish");
-    testDiet3.add(1, "Gluten");
-    ContactDB.addContacts(new ContactFormData("Brad", "Rhines", "301-869-8377", "Home", testDiet3));
+    ContactDB.addContacts(new ContactFormData("Bradford", "Jones", "254-879-0744", "Home", testDiet3));
     List<String> testDiet4 = new ArrayList<>();
     testDiet4.add(0, "Dairy");
     testDiet4.add(1, "Beef");
