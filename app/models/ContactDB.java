@@ -32,8 +32,13 @@ public class ContactDB {
     }
     Contact contactFromForm = new Contact(formData.firstName, formData.lastName, formData.telephone,
         telephoneType, dietTypes);
+    // Make Relationships bi-directional
+    telephoneType.addContact(contactFromForm);
+    for (DietType dietType : dietTypes) {
+      dietType.addContact(contactFromForm);
+    }
     //contacts.put(idVal, contactFromForm);
-    Ebean.save(contactFromForm);
+    contactFromForm.save();
   }
 
   /**
@@ -42,7 +47,7 @@ public class ContactDB {
    * @param telephoneType The TelephoneType to add.
    */
   public static void addTelephoneType(TelephoneType telephoneType) {
-    Ebean.save(telephoneType);
+    telephoneType.save();
     //telephoneTypes.(telephoneType.getTelephoneType(), telephoneType);
   }
 
@@ -52,7 +57,7 @@ public class ContactDB {
    * @param dietType The DietType to add.
    */
   public static void addDietType(DietType dietType) {
-    Ebean.save(dietType);
+    dietType.save();
     //dietTypes.put(dietType.getDietType(), dietType);
   }
 
@@ -63,7 +68,7 @@ public class ContactDB {
    * @return The telephoneType object if found.
    */
   public static TelephoneType getTelephoneType(String telephoneString) {
-    TelephoneType telephoneType = TelephoneType.find().where(telephoneString).findUnique();
+    TelephoneType telephoneType = TelephoneType.find().where().eq("telephoneType", telephoneString).findUnique();
     //TelephoneType telephoneType = telephoneTypes.get(telephoneString);
     if (telephoneType == null) {
       throw new RuntimeException("Invalid Telephone Type: " + telephoneString);
@@ -78,7 +83,7 @@ public class ContactDB {
    * @return The dietType object if found.
    */
   public static DietType getDietType(String dietString) {
-    DietType dietType = DietType.find().where(dietString).findUnique();
+    DietType dietType = DietType.find().where().eq("dietType", dietString).findUnique();
     //DietType dietType = dietTypes.get(dietString);
     if (dietType == null) {
       throw new RuntimeException("Invalid Diet Type: " + dietString);
@@ -121,8 +126,6 @@ public class ContactDB {
    * @return the full list of contacts.
    */
   public static List<Contact> getContacts() {
-    List<Contact> contacts = new ArrayList<Contact>();
-    contacts = Contact.find().all();
-    return contacts;
+    return Contact.find().all();
   }
 }

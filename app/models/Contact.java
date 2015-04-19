@@ -14,7 +14,7 @@ import java.util.List;
  * A contact object that holds a First Name, Last Name, and Telephone Number.
  */
 @Entity
-public class Contact {
+public class Contact extends Model {
   @Id
   private long id;
   private String firstName;
@@ -49,7 +49,7 @@ public class Contact {
   /**
    * Finder method for database queries.
    *
-   * @return The found item.
+   * @return The Finder Method.
    */
   public static Model.Finder<Long, Contact> find() {
     return new Model.Finder<Long, Contact>(Long.class, Contact.class);

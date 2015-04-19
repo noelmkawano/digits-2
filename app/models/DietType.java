@@ -2,10 +2,8 @@ package models;
 
 import play.db.ebean.Model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.ManyToMany;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,17 +12,17 @@ import java.util.List;
  * The Diet Type class holds various Diet Types such as Chicken, Beef, etc.
  */
 @Entity
-public class DietType {
+public class DietType extends Model {
   @Id
   private long id;
   private String dietType;
-  @ManyToMany(mappedBy = "contact", cascade = CascadeType.PERSIST)
+  @ManyToMany(mappedBy = "dietTypes")
   private List<Contact> contacts = new ArrayList<>();
 
   /**
    * Finder Method for database queries.
    *
-   * @return The found class.
+   * @return The Finder method.
    */
   public static Model.Finder<Long, DietType> find() {
     return new Model.Finder<Long, DietType>(Long.class, DietType.class);
