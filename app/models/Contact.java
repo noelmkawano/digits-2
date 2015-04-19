@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,8 +11,8 @@ public class Contact {
   private String firstName;
   private String lastName;
   private String telephone;
-  private String telephoneType;
-  private List<String> dietTypes;
+  private TelephoneType telephoneType;
+  private List<DietType> dietTypes = new ArrayList<>();
 
 
   /**
@@ -24,8 +25,8 @@ public class Contact {
    * @param telephoneType the user telephone type.
    * @param dietTypes     A list of dietary preferences.
    */
-  public Contact(long id, String firstName, String lastName, String telephone, String telephoneType,
-                 List<String> dietTypes) {
+  public Contact(long id, String firstName, String lastName, String telephone, TelephoneType telephoneType,
+                 List<DietType> dietTypes) {
 
     this.id = id;
     this.firstName = firstName;
@@ -72,20 +73,24 @@ public class Contact {
   }
 
   /**
-   * Returns the telephone type value to the caller.
+   * Returns the telephone type object to the caller.
    *
    * @return Telephone type string.
    */
   public String getTelephoneType() {
-    return telephoneType;
+    return telephoneType.getTelephoneType();
   }
 
   /**
-   * Returns the diet Type values to the caller.
+   * Returns the diet Type object to the caller.
    *
    * @return the Diet type value list.
    */
   public List<String> getDietTypes() {
-    return dietTypes;
+    List<String> returnedDietTypes = new ArrayList<>();
+    for (DietType diet : dietTypes) {
+      returnedDietTypes.add(diet.getDietType());
+    }
+    return returnedDietTypes;
   }
 }

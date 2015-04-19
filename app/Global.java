@@ -1,4 +1,6 @@
 import models.ContactDB;
+import models.DietType;
+import models.TelephoneType;
 import play.Application;
 import play.GlobalSettings;
 import views.formdata.ContactFormData;
@@ -14,6 +16,15 @@ public class Global extends GlobalSettings {
   @Override
   public void onStart(Application application) {
     super.onStart(application);
+
+    ContactDB.addTelephoneType(new TelephoneType("Mobile"));
+    ContactDB.addTelephoneType(new TelephoneType("Home"));
+    ContactDB.addTelephoneType(new TelephoneType("Work"));
+    ContactDB.addDietType(new DietType("Chicken"));
+    ContactDB.addDietType(new DietType("Fish"));
+    ContactDB.addDietType(new DietType("Beef"));
+    ContactDB.addDietType(new DietType("Dairy"));
+    ContactDB.addDietType(new DietType("Gluten"));
 
     List<String> testDiet = new ArrayList<>();
     testDiet.add(0, "Beef");
