@@ -1,21 +1,22 @@
 package models;
 
+import com.avaje.ebean.Ebean;
 import views.formdata.ContactFormData;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+//import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+//import java.util.Map;
 
 /**
  * An in-memory array of Contacts that have been gathered from input form data.
  */
 public class ContactDB {
 
-  private static Map<Long, Contact> contacts = new HashMap<>();
-  private static Map<String, TelephoneType> telephoneTypes = new HashMap<>();
-  private static Map<String, DietType> dietTypes = new HashMap<>();
-  private static long currentId = 1;
+  //private static Map<Long, Contact> contacts = new HashMap<>();
+  //private static Map<String, TelephoneType> telephoneTypes = new HashMap<>();
+  //private static Map<String, DietType> dietTypes = new HashMap<>();
+  //private static long currentId = 1;
 
   /**
    * Adds a formData input to the Contacts list.
@@ -23,15 +24,16 @@ public class ContactDB {
    * @param formData Input data from the form.
    */
   public static void addContacts(ContactFormData formData) {
-    long idVal = (formData.id == 0) ? currentId++ : formData.id;
+    //long idVal = (formData.id == 0) ? currentId++ : formData.id;
     TelephoneType telephoneType = getTelephoneType(formData.telephoneType);
     List<DietType> dietTypes = new ArrayList<>();
     for (String diet : formData.dietTypes) {
       dietTypes.add(getDietType(diet));
     }
-    Contact contactFromForm = new Contact(idVal, formData.firstName, formData.lastName, formData.telephone,
+    Contact contactFromForm = new Contact(formData.firstName, formData.lastName, formData.telephone,
         telephoneType, dietTypes);
-    contacts.put(idVal, contactFromForm);
+    //contacts.put(idVal, contactFromForm);
+    Ebean.save(contactFromForm);
   }
 
   /**
@@ -40,7 +42,8 @@ public class ContactDB {
    * @param telephoneType The TelephoneType to add.
    */
   public static void addTelephoneType(TelephoneType telephoneType) {
-    telephoneTypes.put(telephoneType.getTelephoneType(), telephoneType);
+    Ebean.save(telephoneType);
+    //telephoneTypes.(telephoneType.getTelephoneType(), telephoneType);
   }
 
   /**
@@ -49,7 +52,8 @@ public class ContactDB {
    * @param dietType The DietType to add.
    */
   public static void addDietType(DietType dietType) {
-    dietTypes.put(dietType.getDietType(), dietType);
+    Ebean.save(dietType);
+    //dietTypes.put(dietType.getDietType(), dietType);
   }
 
   /**
@@ -59,7 +63,8 @@ public class ContactDB {
    * @return The telephoneType object if found.
    */
   public static TelephoneType getTelephoneType(String telephoneString) {
-    TelephoneType telephoneType = telephoneTypes.get(telephoneString);
+    TelephoneType telephoneType = TelephoneType.find().where(telephoneString).findUnique();
+    //TelephoneType telephoneType = telephoneTypes.get(telephoneString);
     if (telephoneType == null) {
       throw new RuntimeException("Invalid Telephone Type: " + telephoneString);
     }
@@ -73,7 +78,8 @@ public class ContactDB {
    * @return The dietType object if found.
    */
   public static DietType getDietType(String dietString) {
-    DietType dietType = dietTypes.get(dietString);
+    DietType dietType = DietType.find().where(dietString).findUnique();
+    //DietType dietType = dietTypes.get(dietString);
     if (dietType == null) {
       throw new RuntimeException("Invalid Diet Type: " + dietString);
     }
@@ -87,7 +93,8 @@ public class ContactDB {
    * @return the contact associated with the ID.
    */
   public static Contact getContact(long id) {
-    Contact contact = contacts.get(id);
+    //Contact contact = contacts.get(id);
+    Contact contact = Contact.find().byId(id);
     if (contact == null) {
       throw new RuntimeException("Unable to find contact with given ID value.");
     }
@@ -100,11 +107,12 @@ public class ContactDB {
    * @param id The ID value of the contact to delete.
    */
   public static void deleteContact(long id) {
-    Contact contact = contacts.get(id);
+    //Contact contact = contacts.get(id);
+    Contact contact = Contact.find().byId(id);
     if (contact == null) {
       throw new RuntimeException("Unable to find contact with given ID value.");
     }
-    contacts.remove(id);
+    Ebean.delete(contact);
   }
 
   /**
@@ -113,6 +121,8 @@ public class ContactDB {
    * @return the full list of contacts.
    */
   public static List<Contact> getContacts() {
-    return new ArrayList<>(contacts.values());
+    List<Contact> contacts = new ArrayList<Contact>();
+    contacts = Contact.find().all();
+    return contacts;
   }
 }

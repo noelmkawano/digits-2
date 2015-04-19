@@ -1,15 +1,33 @@
 package models;
 
+import play.db.ebean.Model;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * The Telephone Type class holds various Telephone Types such as Mobile, Home, etc.
  */
+@Entity
 public class TelephoneType {
+  @Id
   private long id;
   private String telephoneType;
+  @OneToMany(mappedBy = "contact", cascade = CascadeType.PERSIST)
   private List<Contact> contacts = new ArrayList<>();
+
+  /**
+   * Finder method for database queries.
+   *
+   * @return The found item.
+   */
+  public static Model.Finder<Long, TelephoneType> find() {
+    return new Model.Finder<Long, TelephoneType>(Long.class, TelephoneType.class);
+  }
 
   /**
    * Get the ID.
