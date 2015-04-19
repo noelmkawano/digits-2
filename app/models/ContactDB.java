@@ -13,6 +13,8 @@ import java.util.Map;
 public class ContactDB {
 
   private static Map<Long, Contact> contacts = new HashMap<>();
+  private static Map<String, TelephoneType> telephoneTypes = new HashMap<>();
+  private static Map<String, DietType> dietTypes = new HashMap<>();
   private static long currentId = 1;
 
   /**
@@ -22,9 +24,60 @@ public class ContactDB {
    */
   public static void addContacts(ContactFormData formData) {
     long idVal = (formData.id == 0) ? currentId++ : formData.id;
+    TelephoneType telephoneType = getTelephoneType(formData.telephoneType);
+    List<DietType> dietTypes = new ArrayList<>();
+    for (String diet : formData.dietTypes) {
+      dietTypes.add(getDietType(diet));
+    }
     Contact contactFromForm = new Contact(idVal, formData.firstName, formData.lastName, formData.telephone,
-        formData.telephoneType, formData.dietTypes);
+        telephoneType, dietTypes);
     contacts.put(idVal, contactFromForm);
+  }
+
+  /**
+   * Adds a Telephone Type to the TelephoneTypes HashMap.
+   *
+   * @param telephoneType The TelephoneType to add.
+   */
+  public static void addTelephoneType(TelephoneType telephoneType) {
+    telephoneTypes.put(telephoneType.getTelephoneType(), telephoneType);
+  }
+
+  /**
+   * Adds a Diet Type to the DietTypes HashMap.
+   *
+   * @param dietType The DietType to add.
+   */
+  public static void addDietType(DietType dietType) {
+    dietTypes.put(dietType.getDietType(), dietType);
+  }
+
+  /**
+   * Get a specific Telephone type based on a String, or throw a RuntimeException if not found.
+   *
+   * @param telephoneString The String to search by.
+   * @return The telephoneType object if found.
+   */
+  public static TelephoneType getTelephoneType(String telephoneString) {
+    TelephoneType telephoneType = telephoneTypes.get(telephoneString);
+    if (telephoneType == null) {
+      throw new RuntimeException("Invalid Telephone Type: " + telephoneString);
+    }
+    return telephoneType;
+  }
+
+  /**
+   * Get a specific Diet Type object based on a String, or throw a RuntimeException if not found.
+   *
+   * @param dietString The Diet Type String passed in.
+   * @return The dietType object if found.
+   */
+  public static DietType getDietType(String dietString) {
+    DietType dietType = dietTypes.get(dietString);
+    if (dietType == null) {
+      throw new RuntimeException("Invalid Diet Type: " + dietString);
+    }
+    return dietType;
   }
 
   /**

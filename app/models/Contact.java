@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,8 +11,8 @@ public class Contact {
   private String firstName;
   private String lastName;
   private String telephone;
-  private String telephoneType;
-  private List<String> dietTypes;
+  private TelephoneType telephoneType;
+  private List<DietType> dietTypes;
 
 
   /**
@@ -24,14 +25,62 @@ public class Contact {
    * @param telephoneType the user telephone type.
    * @param dietTypes     A list of dietary preferences.
    */
-  public Contact(long id, String firstName, String lastName, String telephone, String telephoneType,
-                 List<String> dietTypes) {
+  public Contact(long id, String firstName, String lastName, String telephone, TelephoneType telephoneType,
+                 List<DietType> dietTypes) {
 
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.telephone = telephone;
     this.telephoneType = telephoneType;
+    this.dietTypes = dietTypes;
+  }
+
+  /**
+   * Set the ID.
+   * @param id The ID.
+   */
+  public void setId(long id) {
+    this.id = id;
+  }
+
+  /**
+   * Set the First Name.
+   * @param firstName The First Name String.
+   */
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  /**
+   * Set the Last Name.
+   * @param lastName The Last Name String.
+   */
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
+
+  /**
+   * Set the Telephone Number.
+   * @param telephone The Telephone Number string.
+   */
+  public void setTelephone(String telephone) {
+    this.telephone = telephone;
+  }
+
+  /**
+   * Set the telephoneType.
+   * @param telephoneType The TelephoneType object.
+   */
+  public void setTelephoneType(TelephoneType telephoneType) {
+    this.telephoneType = telephoneType;
+  }
+
+  /**
+   * Set the dietType.
+   * @param dietTypes The DietType object.
+   */
+  public void setDietTypes(List<DietType> dietTypes) {
     this.dietTypes = dietTypes;
   }
 
@@ -76,7 +125,7 @@ public class Contact {
    *
    * @return Telephone type string.
    */
-  public String getTelephoneType() {
+  public TelephoneType getTelephoneType() {
     return telephoneType;
   }
 
@@ -85,7 +134,31 @@ public class Contact {
    *
    * @return the Diet type value list.
    */
-  public List<String> getDietTypes() {
+  public List<DietType> getDietTypes() {
     return dietTypes;
+  }
+
+  /**
+   * Returns the list of Diet Types as a string for display by the Scala Template.
+   * @return A single string object.
+   */
+  public String getDietTypesString() {
+    String diets = "";
+    for (DietType diet : dietTypes) {
+      diets += diet.getDietType() + ", ";
+    }
+    return diets.substring(0, (diets.length() == 0 ? 0 : (diets.length() - 2)));
+  }
+
+  /**
+   * Returns a list of DietType Strings for this Contact.
+   * @return The list of Diet Type Strings.
+   */
+  public List<String> getDietTypesList() {
+    List<String> dietList = new ArrayList<>();
+    for (DietType diet : this.dietTypes) {
+      dietList.add(diet.getDietType());
+    }
+    return dietList;
   }
 }
