@@ -64,7 +64,7 @@ public class Application extends Controller {
     }
     else {
       ContactFormData data = formData.get();
-      ContactDB.addContacts(data);
+      ContactDB.addContact(data);
       System.out.printf("HTTP OK; Form Data:  %s, %s, %s, %s %n", data.firstName, data.lastName, data.telephone,
           data.telephoneType);
       System.out.println(data.dietTypes);

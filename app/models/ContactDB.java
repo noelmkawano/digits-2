@@ -1,12 +1,9 @@
 package models;
 
-import com.avaje.ebean.Ebean;
 import views.formdata.ContactFormData;
 
 import java.util.ArrayList;
-//import java.util.HashMap;
 import java.util.List;
-//import java.util.Map;
 
 /**
  * An in-memory array of Contacts that have been gathered from input form data.
@@ -23,22 +20,39 @@ public class ContactDB {
    *
    * @param formData Input data from the form.
    */
-  public static void addContacts(ContactFormData formData) {
+  public static void addContact(ContactFormData formData) {
     //long idVal = (formData.id == 0) ? currentId++ : formData.id;
-    TelephoneType telephoneType = getTelephoneType(formData.telephoneType);
-    List<DietType> dietTypes = new ArrayList<>();
-    for (String diet : formData.dietTypes) {
-      dietTypes.add(getDietType(diet));
+
+    if (formData.id == 0) {
+      TelephoneType telephoneType = getTelephoneType(formData.telephoneType);
+      List<DietType> dietTypes = new ArrayList<>();
+      for (String diet : formData.dietTypes) {
+        dietTypes.add(getDietType(diet));
+      }
+      Contact contactFromForm = new Contact(formData.firstName, formData.lastName, formData.telephone,
+          telephoneType, dietTypes);
+      // Make Relationships bi-directional
+      telephoneType.addContact(contactFromForm);
+      for (DietType dietType : dietTypes) {
+        dietType.addContact(contactFromForm);
+      }
+      contactFromForm.save();
     }
-    Contact contactFromForm = new Contact(formData.firstName, formData.lastName, formData.telephone,
-        telephoneType, dietTypes);
-    // Make Relationships bi-directional
-    telephoneType.addContact(contactFromForm);
-    for (DietType dietType : dietTypes) {
-      dietType.addContact(contactFromForm);
+    else {
+      Contact contactFromForm = Contact.find().byId(formData.id);
+      contactFromForm.setFirstName(formData.firstName);
+      contactFromForm.setLastName(formData.lastName);
+      contactFromForm.setTelephone(formData.telephone);
+      TelephoneType telephoneType = getTelephoneType(formData.telephoneType);
+      contactFromForm.setTelephoneType(telephoneType);
+      List<DietType> dietTypes = new ArrayList<>();
+      for (String diet : formData.dietTypes) {
+        dietTypes.add(getDietType(diet));
+      }
+      contactFromForm.setDietTypes(dietTypes);
+      contactFromForm.save();
     }
     //contacts.put(idVal, contactFromForm);
-    contactFromForm.save();
   }
 
   /**
@@ -117,7 +131,7 @@ public class ContactDB {
     if (contact == null) {
       throw new RuntimeException("Unable to find contact with given ID value.");
     }
-    Ebean.delete(contact);
+    contact.delete();
   }
 
   /**
