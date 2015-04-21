@@ -22,8 +22,8 @@ public class ContactDB {
    */
   public static void addContact(ContactFormData formData) {
     //long idVal = (formData.id == 0) ? currentId++ : formData.id;
-
     if (formData.id == 0) {
+      // New item not in the database.
       TelephoneType telephoneType = getTelephoneType(formData.telephoneType);
       List<DietType> dietTypes = new ArrayList<>();
       for (String diet : formData.dietTypes) {
@@ -39,6 +39,7 @@ public class ContactDB {
       contactFromForm.save();
     }
     else {
+      // Item already in the database, fetch and update.
       Contact contactFromForm = Contact.find().byId(formData.id);
       contactFromForm.setFirstName(formData.firstName);
       contactFromForm.setLastName(formData.lastName);
@@ -131,6 +132,7 @@ public class ContactDB {
     if (contact == null) {
       throw new RuntimeException("Unable to find contact with given ID value.");
     }
+    contact.deleteManyToManyAssociations("dietTypes");
     contact.delete();
   }
 
