@@ -130,6 +130,8 @@ public class ContactDB {
     if (contact == null) {
       throw new RuntimeException("Unable to find contact with given ID value.");
     }
+    contact.deleteManyToManyAssociations("dietTypes");
+    contact.delete();
     //contacts.remove(id);
   }
 
