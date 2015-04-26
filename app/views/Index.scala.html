@@ -1,5 +1,8 @@
 @(contacts: List[Contact])
 
+  @import be.objectify.deadbolt.java.views.html._
+  @import be.objectify.deadbolt.core.utils.TemplateUtils._
+
 @Main("Home") {
   <div class="container">
     <h1>Current Contacts</h1>
@@ -23,8 +26,16 @@
             <td>@contact.getTelephone</td>
             <td>@contact.getTelephoneType().getTelephoneType()</td>
             <td>@contact.getDietTypesString</td>
-            <td><a href="@routes.Application.newContact(contact.getId)" class="btn btn-warning btn-xs" role="button">Edit</a></td>
-            <td><a href="@routes.Application.deleteContact(contact.getId)" class="btn btn-danger btn-xs" role="button">Delete</a></td>
+            <td>
+              <a href="@routes.Application.newContact(contact.getId)" class="btn btn-warning btn-xs" role="button">
+                Edit
+              </a>
+            </td>
+            <td>
+              <a href="@routes.Application.deleteContact(contact.getId)" class="btn btn-danger btn-xs" role="button">
+                Delete
+              </a>
+            </td>
           </tr>
         }
       </tbody>

@@ -11,5 +11,7 @@ libraryDependencies ++= Seq(
   javaEbean,
   cache,
   javaWs,
-  "org.postgresql" % "postgresql" % "9.3-1102-jdbc4"
+  "org.postgresql" % "postgresql" % "9.3-1102-jdbc4",
+  "be.objectify"  %% "deadbolt-java" % "2.3.2",
+  "com.feth" %% "play-authenticate" % "0.6.8"
 )
