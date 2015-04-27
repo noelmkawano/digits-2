@@ -95,6 +95,11 @@ public class Application extends Controller {
     return ok(Login.render(MyUsernamePasswordAuthProvider.LOGIN_FORM));
   }
 
+  /**
+   * Process a login.
+   *
+   * @return Whether the login attempt was successful.
+   */
   public static Result doLogin() {
     com.feth.play.module.pa.controllers.Authenticate.noCache(response());
     final Form<MyUsernamePasswordAuthProvider.MyLogin> filledForm = MyUsernamePasswordAuthProvider.LOGIN_FORM
@@ -108,10 +113,19 @@ public class Application extends Controller {
     }
   }
 
+  /**
+   * Render the signup page.
+   *
+   * @return The rendered signup page.
+   */
   public static Result signup() {
     return ok(Signup.render(MyUsernamePasswordAuthProvider.SIGNUP_FORM));
   }
 
+  /**
+   * The jsRoutes page.
+   * @return Rendered jsRoutes.
+   */
   public static Result jsRoutes() {
     return ok(
         Routes.javascriptRouter("jsRoutes",
