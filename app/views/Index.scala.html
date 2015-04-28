@@ -16,15 +16,15 @@
         </tr>
       </thead>
       <tbody>
-        @for(contact <- contacts) {
+        @for(contacts <- contacts) {
           <tr>
-            <td>@contact.getFirstName</td>
-            <td>@contact.getLastName</td>
-            <td>@contact.getTelephone</td>
-            <td>@contact.getTelephoneType().getTelephoneType()</td>
-            <td>@contact.getDietTypesString</td>
-            <td><a href="@routes.Application.newContact(contact.getId)" class="btn btn-warning btn-xs" role="button">Edit</a></td>
-            <td><a href="@routes.Application.deleteContact(contact.getId)" class="btn btn-danger btn-xs" role="button">Delete</a></td>
+            <td>@contacts.getFirstName</td>
+            <td>@contacts.getLastName</td>
+            <td>@contacts.getTelephone</td>
+            <td>@contacts.getTelephoneType().getTelephoneType()</td>
+            <td>@contacts.getDietTypesString</td>
+            <td><a href="@routes.Application.newContact(contacts.getId)" class="btn btn-warning btn-xs" role="button">Edit</a></td>
+            <td><a href="@routes.Application.deleteContact(contacts.getId)" class="btn btn-danger btn-xs" role="button">Delete</a></td>
           </tr>
         }
       </tbody>

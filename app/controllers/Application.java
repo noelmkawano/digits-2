@@ -6,8 +6,10 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.formdata.ContactFormData;
 import views.formdata.DietTypes;
+import views.formdata.LoginFormData;
 import views.formdata.TelephoneTypes;
 import views.html.Index;
+import views.html.Login;
 import views.html.NewContact;
 
 import java.util.Map;
@@ -24,6 +26,16 @@ public class Application extends Controller {
    */
   public static Result index() {
     return ok(Index.render(ContactDB.getContacts()));
+  }
+
+  /**
+   * Provides the Login page (only to unauthenticated users).
+   *
+   * @return The Login page.
+   */
+  public static Result login() {
+    Form<LoginFormData> formData = Form.form(LoginFormData.class);
+    return ok(Login.render("Login", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), formData));
   }
 
   /**

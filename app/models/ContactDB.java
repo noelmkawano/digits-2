@@ -1,5 +1,6 @@
 package models;
 
+import org.mindrot.jbcrypt.BCrypt;
 import views.formdata.ContactFormData;
 
 import java.util.ArrayList;
@@ -14,6 +15,53 @@ public class ContactDB {
 //  private static Map<String, TelephoneType> telephoneTypes = new HashMap<>();
 //  private static Map<String, DietType> dietTypes = new HashMap<>();
 //  private static long currentId = 1;
+
+
+  /**
+   * Get a specific User from the database.
+   *
+   * @param email The email address associated with the user.
+   * @return The User object or Null if not found.
+   */
+  public static User getUser(String email) {
+    User userFromDB = User.find().where().eq("email", email).findUnique();
+    return userFromDB;
+  }
+
+  /**
+   * Check if an email address is associated with an existing user.
+   * @param email The email address to check.
+   * @return True if exists, otherwise false.
+   */
+  public static boolean isUser(String email) {
+    int count = User.find().where().eq("email", email).findRowCount();
+    return count >= 1;
+  }
+
+  /**
+   * Create a new user and save them to the database with encrypted password.
+   * @param email Email Address
+   * @param password The password to save with the user.
+   */
+  public static void addNewUser(String email, String password) {
+      User user = new User(email, BCrypt.hashpw(password, BCrypt.gensalt(12)));
+      user.save();
+  }
+
+  /**
+   * Returns true if email and password are valid credentials.
+   *
+   * @param email The email.
+   * @param password The password.
+   * @return True if email is a valid user email and password is valid for that email.
+   */
+  public static boolean isValid(String email, String password) {
+    return ((email != null)
+        && (password != null)
+        && isUser(email)
+        && BCrypt.checkpw(password, getUser(email).getPassword()));
+  }
+
 
   /**
    * Adds a formData input to the Contacts list.
@@ -144,4 +192,6 @@ public class ContactDB {
     // return new ArrayList<>(contacts.values());
     return Contact.find().all();
   }
+
+
 }

@@ -7,11 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A contact object that holds a First Name, Last Name, and Telephone Number.
+ * A contact object that holds a First Name, Last Name, Telephone Number, and associated Telephone and Diet types.
  */
 @Entity
 public class Contact extends Model {
@@ -25,6 +26,8 @@ public class Contact extends Model {
   private TelephoneType telephoneType;
   @ManyToMany(cascade = CascadeType.PERSIST)
   private List<DietType> dietTypes;
+  @OneToMany(mappedBy = "contact")
+  private User user;
 
 
   /**
@@ -110,6 +113,15 @@ public class Contact extends Model {
   }
 
   /**
+   * Set the User.
+   *
+   * @param user The User object.
+   */
+  public void setUser(User user) {
+    this.user = user;
+  }
+
+  /**
    * Returns the id value to the caller.
    *
    * @return id long value.
@@ -164,6 +176,15 @@ public class Contact extends Model {
   }
 
   /**
+   * Returns the associated User to the caller.
+   *
+   * @return the User object.
+   */
+  public User getUser() {
+    return user;
+  }
+
+  /**
    * Returns the list of Diet Types as a string for display by the Scala Template.
    *
    * @return A single string object.
@@ -188,4 +209,6 @@ public class Contact extends Model {
     }
     return dietList;
   }
+
+
 }

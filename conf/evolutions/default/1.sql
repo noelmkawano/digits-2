@@ -3,7 +3,7 @@
 
 # --- !Ups
 
-create table contact (
+create table contacts (
   id                        bigint not null,
   first_name                varchar(255),
   last_name                 varchar(255),
@@ -36,12 +36,12 @@ create sequence diet_type_seq;
 
 create sequence telephone_type_seq;
 
-alter table contact add constraint fk_contact_telephoneType_1 foreign key (telephone_type_id) references telephone_type (id) on delete restrict on update restrict;
-create index ix_contact_telephoneType_1 on contact (telephone_type_id);
+alter table contacts add constraint fk_contact_telephoneType_1 foreign key (telephone_type_id) references telephone_type (id) on delete restrict on update restrict;
+create index ix_contact_telephoneType_1 on contacts (telephone_type_id);
 
 
 
-alter table contact_diet_type add constraint fk_contact_diet_type_contact_01 foreign key (contact_id) references contact (id) on delete restrict on update restrict;
+alter table contact_diet_type add constraint fk_contact_diet_type_contact_01 foreign key (contact_id) references contacts (id) on delete restrict on update restrict;
 
 alter table contact_diet_type add constraint fk_contact_diet_type_diet_typ_02 foreign key (diet_type_id) references diet_type (id) on delete restrict on update restrict;
 
@@ -49,7 +49,7 @@ alter table contact_diet_type add constraint fk_contact_diet_type_diet_typ_02 fo
 
 SET REFERENTIAL_INTEGRITY FALSE;
 
-drop table if exists contact;
+drop table if exists contacts;
 
 drop table if exists contact_diet_type;
 
