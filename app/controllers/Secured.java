@@ -1,7 +1,7 @@
 package controllers;
 
 import models.ContactDB;
-import models.User;
+import models.DigitsUser;
 import play.mvc.Result;
 import play.mvc.Http.Context;
 import play.mvc.Security;
@@ -12,7 +12,7 @@ import play.mvc.Security;
  * getUserName() and onAuthorized override superclass methods to restrict access to the NewContact page to an
  * associated user only.
  *
- * getUser(), isLoggedIn, and GetUserInfo() provide static helper methods so that controllers can know when a
+ * getDigitsUser(), isLoggedIn, and GetUserInfo() provide static helper methods so that controllers can know when a
  * user is logged in.
  *
  * Based on original implementation by Philip Johnson at
@@ -66,7 +66,7 @@ public class Secured extends Security.Authenticator {
    * @param context The context.
    * @return The User object, or null.
    */
-  public static User getUserInfo(Context context) {
-    return (isLoggedIn(context) ? ContactDB.getUser(getUser(context)) : null);
+  public static DigitsUser getUserInfo(Context context) {
+    return (isLoggedIn(context) ? ContactDB.getDigitsUser(getUser(context)) : null);
   }
 }

@@ -2,7 +2,7 @@ import models.Contact;
 import models.ContactDB;
 import models.DietType;
 import models.TelephoneType;
-import models.User;
+import models.DigitsUser;
 import play.Application;
 import play.GlobalSettings;
 import views.formdata.ContactFormData;
@@ -32,8 +32,8 @@ public class Global extends GlobalSettings {
       ContactDB.addDietType(new DietType("Gluten"));
     }
 
-    if (User.find().all().isEmpty()) {
-      ContactDB.addNewUser("test@gmail.com", "password");
+    if (DigitsUser.find().all().isEmpty()) {
+      ContactDB.addNewDigitsUser("test@gmail.com", "password");
     }
 
     if (Contact.find().all().isEmpty()) {

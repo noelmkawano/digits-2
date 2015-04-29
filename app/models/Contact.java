@@ -26,7 +26,7 @@ public class Contact extends Model {
   @ManyToMany(cascade = CascadeType.PERSIST)
   private List<DietType> dietTypes;
   @ManyToOne(cascade = CascadeType.PERSIST)
-  private User user;
+  private DigitsUser digitsUser;
 
 
   /**
@@ -114,10 +114,10 @@ public class Contact extends Model {
   /**
    * Set the User.
    *
-   * @param user The User object.
+   * @param digitsUser The User object.
    */
-  public void setUser(User user) {
-    this.user = user;
+  public void setDigitsUser(DigitsUser digitsUser) {
+    this.digitsUser = digitsUser;
   }
 
   /**
@@ -179,8 +179,8 @@ public class Contact extends Model {
    *
    * @return the User object.
    */
-  public User getUser() {
-    return user;
+  public DigitsUser getDigitsUser() {
+    return digitsUser;
   }
 
   /**

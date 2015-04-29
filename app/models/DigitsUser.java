@@ -13,26 +13,26 @@ import java.util.List;
  * A contacts object that holds a First Name, Last Name, and Telephone Number.
  */
 @Entity
-public class User extends Model {
+public class DigitsUser extends Model {
 
   @Id
   private long id;
   private String email;
   private String password;
-  @OneToMany(mappedBy = "user")
+  @OneToMany(mappedBy = "digitsUser")
   private List<Contact> contacts = new ArrayList<>();
 
 
   /**
-   * Create a new User object.
+   * Create a new DigitsUser object.
    *
    * @param email The email address of the user.
    * @param password The password of the user.
    */
-  public User(String email, String password) {
+  public DigitsUser(String email, String password) {
 
     this.email = email;
-    this.password = BCrypt.hashpw(password, BCrypt.gensalt(12));
+    this.password = password;
   }
 
   /**
@@ -40,8 +40,8 @@ public class User extends Model {
    *
    * @return The finder method for Contacts.
    */
-  public static Finder<Long, User> find() {
-    return new Finder<Long, User>(Long.class, User.class);
+  public static Finder<Long, DigitsUser> find() {
+    return new Finder<Long, DigitsUser>(Long.class, DigitsUser.class);
   }
 
   /**
