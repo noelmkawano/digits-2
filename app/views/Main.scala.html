@@ -1,4 +1,4 @@
-@(page: String, isLoggedIn: Boolean, userInfo: UserInfo)(content: Html)
+@(page: String, isLoggedIn: Boolean, userInfo: User)(content: Html)
 
 <!DOCTYPE html>
 
@@ -44,7 +44,7 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
           @if(isLoggedIn) {
-            <li><p class="navbar-text">@userInfo.getEmail(), @userInfo.getName()</p></li>
+            <li><p class="navbar-text">@userInfo.getEmail()</p></li>
             <li><a href="@routes.Application.logout()">Logout</a></li>
           } else {
             <li><a href="@routes.Application.login()">Login</a></li>

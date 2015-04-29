@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class Contact extends Model {
   private TelephoneType telephoneType;
   @ManyToMany(cascade = CascadeType.PERSIST)
   private List<DietType> dietTypes;
-  @OneToMany(mappedBy = "contact")
+  @ManyToOne(cascade = CascadeType.PERSIST)
   private User user;
 
 

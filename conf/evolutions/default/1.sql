@@ -3,12 +3,13 @@
 
 # --- !Ups
 
-create table contacts (
+create table contact (
   id                        bigint not null,
   first_name                varchar(255),
   last_name                 varchar(255),
   telephone                 varchar(255),
   telephone_type_id         bigint,
+  user_id                   bigint,
   constraint pk_contact primary key (id))
 ;
 
@@ -24,6 +25,13 @@ create table telephone_type (
   constraint pk_telephone_type primary key (id))
 ;
 
+create table user (
+  id                        bigint not null,
+  email                     varchar(255),
+  password                  varchar(255),
+  constraint pk_user primary key (id))
+;
+
 
 create table contact_diet_type (
   contact_id                     bigint not null,
@@ -36,32 +44,36 @@ create sequence diet_type_seq;
 
 create sequence telephone_type_seq;
 
-alter table contacts add constraint fk_contact_telephoneType_1 foreign key (telephone_type_id) references telephone_type (id) on delete restrict on update restrict;
-create index ix_contact_telephoneType_1 on contacts (telephone_type_id);
+create sequence user_seq;
+
+alter table contact add constraint fk_contact_telephoneType_1 foreign key (telephone_type_id) references telephone_type (id);
+create index ix_contact_telephoneType_1 on contact (telephone_type_id);
+alter table contact add constraint fk_contact_user_2 foreign key (user_id) references user (id);
+create index ix_contact_user_2 on contact (user_id);
 
 
 
-alter table contact_diet_type add constraint fk_contact_diet_type_contact_01 foreign key (contact_id) references contacts (id) on delete restrict on update restrict;
+alter table contact_diet_type add constraint fk_contact_diet_type_contact_01 foreign key (contact_id) references contact (id);
 
-alter table contact_diet_type add constraint fk_contact_diet_type_diet_typ_02 foreign key (diet_type_id) references diet_type (id) on delete restrict on update restrict;
+alter table contact_diet_type add constraint fk_contact_diet_type_diet_typ_02 foreign key (diet_type_id) references diet_type (id);
 
 # --- !Downs
 
-SET REFERENTIAL_INTEGRITY FALSE;
+drop table if exists contact cascade;
 
-drop table if exists contacts;
+drop table if exists contact_diet_type cascade;
 
-drop table if exists contact_diet_type;
+drop table if exists diet_type cascade;
 
-drop table if exists diet_type;
+drop table if exists telephone_type cascade;
 
-drop table if exists telephone_type;
-
-SET REFERENTIAL_INTEGRITY TRUE;
+drop table if exists user cascade;
 
 drop sequence if exists contact_seq;
 
 drop sequence if exists diet_type_seq;
 
 drop sequence if exists telephone_type_seq;
+
+drop sequence if exists user_seq;
 

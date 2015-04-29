@@ -1,4 +1,4 @@
-@(page: String, isLoggedIn: Boolean, userInfo: UserInfo, contacts: List[Contact])
+@(page: String, isLoggedIn: Boolean, userInfo: User, contacts: List[Contact])
 
 @Main(page, isLoggedIn, userInfo) {
   <div class="container">
@@ -23,8 +23,18 @@
             <td>@contacts.getTelephone</td>
             <td>@contacts.getTelephoneType().getTelephoneType()</td>
             <td>@contacts.getDietTypesString</td>
-            <td><a href="@routes.Application.newContact(contacts.getId)" class="btn btn-warning btn-xs" role="button">Edit</a></td>
-            <td><a href="@routes.Application.deleteContact(contacts.getId)" class="btn btn-danger btn-xs" role="button">Delete</a></td>
+            @if(isLoggedIn) {
+              <td>
+                <a href="@routes.Application.newContact(contacts.getId)" class="btn btn-warning btn-xs" role="button">
+                  Edit
+                </a>
+              </td>
+              <td>
+                <a href="@routes.Application.deleteContact(contacts.getId)" class="btn btn-danger btn-xs" role="button">
+                  Delete
+                </a>
+              </td>
+            }
           </tr>
         }
       </tbody>

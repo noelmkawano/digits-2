@@ -39,7 +39,7 @@ public class UserFormData {
     List<ValidationError> errors = new ArrayList<>();
 
     if (!ContactDB.isUser(email)) {
-      errors.add(new ValidationError("email", "Sorry, a user with this email address already exists.");
+      errors.add(new ValidationError("email", "Sorry, a user with this email address already exists."));
       errors.add(new ValidationError("password", ""));
     }
 

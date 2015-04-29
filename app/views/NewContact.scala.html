@@ -1,17 +1,20 @@
-@(contactForm: Form[views.formdata.ContactFormData], telephoneTypeMap: Map[String, Boolean], dietMap: Map[String, Boolean])
+@(page: String, isLoggedIn: Boolean, userInfo: User, contactForm: Form[views.formdata.ContactFormData],
+    telephoneTypeMap: Map[String, Boolean], dietMap: Map[String, Boolean])
 
 @import views.html.bootstrap3._
 @import helper._
 
-@Main("NewContact") {
+@Main(page, isLoggedIn, userInfo) {
   <div class="container">
     @form(routes.Application.postContact(), 'class -> "form-horizontal") {
 
-
-
     <!--<form class="form-horizontal">-->
-      <!-- Hidden ID Field -->
-      @hidden(contactForm("id"))
+
+      <!-- Hidden userID Field. -->
+      @hidden(contactForm("userId"))
+
+      <!-- Hidden contactID Field -->
+      @hidden(contactForm("contactId"))
 
       <!-- First Name -->
       @text(contactForm("firstName"),

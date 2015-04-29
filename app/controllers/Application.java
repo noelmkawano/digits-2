@@ -30,7 +30,6 @@ public class Application extends Controller {
   public static Result index() {
     return ok(Index.render("Home", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), ContactDB.getContacts()));
   }
-  // TODO: Finish building out the routes for each of the new methods for logins and logouts.
 
   /**
    * Provides the Login page (only to unauthenticated users).
@@ -76,6 +75,17 @@ public class Application extends Controller {
   }
 
   /**
+   * Logs out (only for authenticated users) and returns them to the Index page.
+   *
+   * @return A redirect to the Index page.
+   */
+  @Security.Authenticated(Secured.class)
+  public static Result logout() {
+    session().clear();
+    return redirect(routes.Application.index());
+  }
+
+  /**
    * Renders the newContact page with a form to add new contacts if the ID is 0; otherwise updates the existing contact.
    *
    * @param id The ID value passed in.
@@ -87,7 +97,8 @@ public class Application extends Controller {
     Form<ContactFormData> formData = Form.form(ContactFormData.class).fill(data);
     Map<String, Boolean> telephoneTypeMap = TelephoneTypes.getTypes(data.telephoneType);
     Map<String, Boolean> dietTypes = DietTypes.getDietTypes(data.dietTypes);
-    return ok(NewContact.render(formData, telephoneTypeMap, dietTypes));
+    return ok(NewContact.render("NewContact", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()),
+        formData, telephoneTypeMap, dietTypes));
   }
 
   /**
@@ -99,7 +110,7 @@ public class Application extends Controller {
   @Security.Authenticated(Secured.class)
   public static Result deleteContact(long id) {
     ContactDB.deleteContact(id);
-    return ok(Index.render(ContactDB.getContacts()));
+    return ok(Index.render("Home", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), ContactDB.getContacts()));
   }
 
   /**
@@ -112,7 +123,8 @@ public class Application extends Controller {
     Form<ContactFormData> formData = Form.form(ContactFormData.class).bindFromRequest();
     if (formData.hasErrors()) {
       System.out.println("HTTP Form Error.");
-      return badRequest(NewContact.render(formData, TelephoneTypes.getTypes(), DietTypes.getDietTypes()));
+      return badRequest(NewContact.render("NewContact", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()),
+          formData, TelephoneTypes.getTypes(), DietTypes.getDietTypes()));
     }
     else {
       ContactFormData data = formData.get();
@@ -120,8 +132,8 @@ public class Application extends Controller {
       System.out.printf("HTTP OK; Form Data:  %s, %s, %s, %s %n", data.firstName, data.lastName, data.telephone,
           data.telephoneType);
       System.out.println(data.dietTypes);
-      return ok(NewContact.render(formData, TelephoneTypes.getTypes(data.telephoneType),
-          DietTypes.getDietTypes(data.dietTypes)));
+      return ok(NewContact.render("NewContact", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()),
+          formData, TelephoneTypes.getTypes(data.telephoneType), DietTypes.getDietTypes(data.dietTypes)));
     }
   }
 }

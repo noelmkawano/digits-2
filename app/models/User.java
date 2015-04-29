@@ -3,7 +3,6 @@ package models;
 import org.mindrot.jbcrypt.BCrypt;
 import play.db.ebean.Model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -20,7 +19,7 @@ public class User extends Model {
   private long id;
   private String email;
   private String password;
-  @OneToMany(cascade = CascadeType.PERSIST)
+  @OneToMany(mappedBy = "user")
   private List<Contact> contacts = new ArrayList<>();
 
 
