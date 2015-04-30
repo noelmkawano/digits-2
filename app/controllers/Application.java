@@ -9,10 +9,12 @@ import play.mvc.Security;
 import views.formdata.ContactFormData;
 import views.formdata.DietTypes;
 import views.formdata.LoginFormData;
+import views.formdata.SignupFormData;
 import views.formdata.TelephoneTypes;
 import views.html.Index;
 import views.html.Login;
 import views.html.NewContact;
+import views.html.Signup;
 
 import java.util.List;
 import java.util.Map;
@@ -36,9 +38,9 @@ public class Application extends Controller {
    *
    * @return The Login page.
    */
-  public static Result login() {
+  public static Result login(String message) {
     Form<LoginFormData> formData = Form.form(LoginFormData.class);
-    return ok(Login.render("Login", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), formData));
+    return ok(Login.render("Login", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), formData, message));
   }
 
   /**
@@ -64,7 +66,7 @@ public class Application extends Controller {
           }
         }
       }
-      return badRequest(Login.render("Login", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), formData));
+      return badRequest(Login.render("Login", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), formData, ""));
     }
     else {
       // email/password OK, so now we set the session variable and only go to authenticated pages.
@@ -83,6 +85,51 @@ public class Application extends Controller {
   public static Result logout() {
     session().clear();
     return redirect(routes.Application.index());
+  }
+
+  /**
+   * Provides the Signup page (only to unauthenticated users).
+   *
+   * @return The Signup page.
+   */
+  public static Result signup() {
+    Form<SignupFormData> formData = Form.form(SignupFormData.class);
+    return ok(Signup.render("Signup", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), formData));
+  }
+
+  /**
+   * Processes a Signup form submission from an unauthenticated user.
+   * First we bind the HTTP POST data to an instance of SignupFormData.
+   * The binding process will invoke the SignupFormData.validate() method.
+   * If errors are found, re-render the page, displaying the error data.
+   * If errors not found, take the user to the login screen and display message.
+   *
+   * @return The index page with the results of validation.
+   */
+  public static Result postSignup() {
+
+    // Get the submitted form data from the request object, and run validation.
+    Form<SignupFormData> formData = Form.form(SignupFormData.class).bindFromRequest();
+
+    if (formData.hasErrors()) {
+      for (String key : formData.errors().keySet()) {
+        List<ValidationError> currentError = formData.errors().get(key);
+        for (play.data.validation.ValidationError error : currentError) {
+          if (!error.message().equals("")) {
+            flash(key, error.message());
+          }
+        }
+      }
+      return badRequest(Signup.render("Signup", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), formData));
+    }
+    else {
+      // email/password OK, so now we set the session variable and only go to authenticated pages.
+      //session().clear();
+      //session("email", formData.get().email);
+      SignupFormData dataFromForm = formData.get();
+      ContactDB.addNewDigitsUser(dataFromForm.email, dataFromForm.password);
+      return redirect(routes.Application.login("Success"));
+    }
   }
 
   /**

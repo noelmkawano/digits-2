@@ -9,9 +9,12 @@ POST        /newcontact          controllers.Application.postContact()
 GET         /delete              controllers.Application.deleteContact(id: Long?= 0)
 
 # Login and authentication workflow
-GET         /login               controllers.Application.login()
+GET         /login               controllers.Application.login(msg: String?= "")
 POST        /login               controllers.Application.postLogin()
 GET         /logout              controllers.Application.logout()
+
+GET         /signup              controllers.Application.signup()
+POST        /signup              controllers.Application.postSignup()
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file        controllers.Assets.at(path="/public", file)
