@@ -1,7 +1,9 @@
 package tests;
 
 import models.Contact;
+import models.ContactDB;
 import models.DietType;
+import models.DigitsUser;
 import models.TelephoneType;
 import org.junit.Test;
 
@@ -33,7 +35,8 @@ public class ModelTest {
         DietType dietType = DietType.find().byId(1L);
         List<DietType> dietTypes = new ArrayList<>();
         dietTypes.add(dietType);
-        Contact contact = new Contact("Aaron", "Wilson", "808-954-9388", telephoneType, dietTypes);
+        DigitsUser digitsUser = ContactDB.getDigitsUser(1);
+        Contact contact = new Contact("Aaron", "Wilson", "808-954-9388", telephoneType, dietTypes, digitsUser);
         contact.save();
 
         // Test bi-directional relationships.

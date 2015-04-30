@@ -11,10 +11,13 @@
     <!--<form class="form-horizontal">-->
 
       <!-- Hidden userID Field. -->
-      @hidden(contactForm("userId"))
+      @hidden(contactForm("Id"))
 
       <!-- Hidden contactID Field -->
-      @hidden(contactForm("contactId"))
+      <input type="hidden"
+      name="digitsUserId"
+      id="digitsUserId"
+      value="@userInfo.getId()">
 
       <!-- First Name -->
       @text(contactForm("firstName"),

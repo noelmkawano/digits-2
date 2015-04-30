@@ -97,6 +97,7 @@ public class Application extends Controller {
     Form<ContactFormData> formData = Form.form(ContactFormData.class).fill(data);
     Map<String, Boolean> telephoneTypeMap = TelephoneTypes.getTypes(data.telephoneType);
     Map<String, Boolean> dietTypes = DietTypes.getDietTypes(data.dietTypes);
+    //DigitsUser loggedInUser = ContactDB.getDigitsUser(Secured.getUser(ctx()));
     return ok(NewContact.render("NewContact", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()),
         formData, telephoneTypeMap, dietTypes));
   }

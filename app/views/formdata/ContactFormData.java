@@ -19,6 +19,11 @@ public class ContactFormData {
   public long id;
 
   /**
+   * Input data Digits User email.
+   */
+  public long digitsUserId;
+
+  /**
    * Input data first name field.
    */
   public String firstName = "";
@@ -43,6 +48,7 @@ public class ContactFormData {
    */
   public List<String> dietTypes = new ArrayList<String>();
 
+
   /**
    * Default no-arg constructor required by Play.
    */
@@ -57,6 +63,7 @@ public class ContactFormData {
    */
   public ContactFormData(Contact contact) {
     this.id = contact.getId();
+    this.digitsUserId = contact.getDigitsUser().getId();
     this.firstName = contact.getFirstName();
     this.lastName = contact.getLastName();
     this.telephone = contact.getTelephone();
@@ -71,14 +78,16 @@ public class ContactFormData {
    * @param telephone The telephone number.
    * @param telephoneType The type of telephone.
    * @param dietTypes The selected Diet Types.
+   * @param userId The associated userId.
    */
   public ContactFormData(String firstName, String lastName, String telephone, String telephoneType,
-                         List<String> dietTypes) {
+                         List<String> dietTypes, Long userId) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.telephone = telephone;
     this.telephoneType = telephoneType;
     this.dietTypes = dietTypes;
+    this.digitsUserId = userId;
   }
 
 

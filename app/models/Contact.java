@@ -37,15 +37,17 @@ public class Contact extends Model {
    * @param telephone     the user telephone number.
    * @param telephoneType the user telephone type.
    * @param dietTypes     A list of dietary preferences.
+   * @param user          The associated User object for the user.
    */
   public Contact(String firstName, String lastName, String telephone, TelephoneType telephoneType,
-                 List<DietType> dietTypes) {
+                 List<DietType> dietTypes, DigitsUser user) {
 
     this.firstName = firstName;
     this.lastName = lastName;
     this.telephone = telephone;
     this.telephoneType = telephoneType;
     this.dietTypes = dietTypes;
+    this.digitsUser = user;
   }
 
   /**

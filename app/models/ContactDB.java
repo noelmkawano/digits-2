@@ -18,13 +18,24 @@ public class ContactDB {
 
 
   /**
-   * Get a specific Digits User from the database.
+   * Get a specific Digits User from the database using email.
    *
    * @param email The email address associated with the user.
    * @return The User object or Null if not found.
    */
   public static DigitsUser getDigitsUser(String email) {
     DigitsUser userFromDB = DigitsUser.find().where().eq("email", email).findUnique();
+    return userFromDB;
+  }
+
+  /**
+   * Get a specific Digits User from the database using ID.
+   *
+   * @param id The email address associated with the user.
+   * @return The User object or Null if not found.
+   */
+  public static DigitsUser getDigitsUser(long id) {
+    DigitsUser userFromDB = DigitsUser.find().byId(id);
     return userFromDB;
   }
 
@@ -77,8 +88,9 @@ public class ContactDB {
       for (String diet : formData.dietTypes) {
         dietTypes.add(getDietType(diet));
       }
+      DigitsUser digitsUser = getDigitsUser(formData.digitsUserId);
       Contact contactFromForm = new Contact(formData.firstName, formData.lastName, formData.telephone, telephoneType,
-          dietTypes);
+          dietTypes, digitsUser);
       // Make bi-directional relationships work.
       telephoneType.addContact(contactFromForm);
       for (DietType dietType : dietTypes) {
